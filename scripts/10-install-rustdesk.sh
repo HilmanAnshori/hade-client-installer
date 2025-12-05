@@ -24,13 +24,25 @@ try:
 except Exception as e:
     sys.exit(f"ERROR: Unable to query GitHub releases: {e}")
 
+defs = []
 for asset in release.get("assets", []):
-    name = asset.get("name", "").lower()
-    if name.endswith(".deb") and "amd64" in name:
-        print(asset.get("browser_download_url"))
-        sys.exit(0)
+    name = asset.get("name", "")
+    lower = name.lower()
+    if not lower.endswith(".deb"):
+        continue
+    candidates = (
+        ("linux" in lower),
+        ("amd64" in lower or "x86_64" in lower or "amd64" in lower),
+        "arm" not in lower,
+    )
+    defs.append((candidates, asset.get("browser_download_url"), name))
 
-sys.exit("Unable to find an amd64 Debian asset in the latest RustDesk release.")
+if not defs:
+    sys.exit("Unable to find a Debian (.deb) asset in the latest RustDesk release.")
+
+defs.sort(reverse=True)
+best = defs[0]
+print(best[1])
 PY
 ) || true
 
