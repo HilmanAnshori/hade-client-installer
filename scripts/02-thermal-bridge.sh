@@ -7,11 +7,27 @@ if ! command -v node >/dev/null 2>&1; then
   sudo apt install -y nodejs
 fi
 
+install_python_distutils() {
+  if sudo apt install -y python3-distutils; then
+    return 0
+  fi
+
+  for candidate in python3.11-distutils python3.10-distutils python3.9-distutils; do
+    if sudo apt install -y "$candidate"; then
+      return 0
+    fi
+  done
+
+  echo "Warning: no python3 distutils package is available in apt; some Python tooling may not work."
+}
+
 BRIDGE_DIR="$HOME/thermal-printer-bridge"
 if [ ! -d "$BRIDGE_DIR" ]; then
   echo "Cloning thermal-printer-bridge..."
   git clone https://github.com/HilmanAnshori/thermal-printer-bridge "$BRIDGE_DIR"
 fi
+
+RULE_FILE="${THERMAL_PRINT_RULES:-$BRIDGE_DIR/99-thermal-printer.rules}"
 
 cd "$BRIDGE_DIR"
 if [ -f config.example.json ] && [ ! -f config.json ]; then
@@ -24,9 +40,9 @@ if ! command -v pm2 >/dev/null 2>&1; then
   sudo npm install -g pm2
 fi
 
-sudo apt install -y sqlite3 libbluetooth-dev python3-distutils build-essential || true
+sudo apt install -y sqlite3 libbluetooth-dev build-essential || true
+install_python_distutils
 
-RULE_FILE="$(dirname "$PWD")/Thermal Print/99-thermal-printer.rules"
 if [ -f "$RULE_FILE" ]; then
   echo "Installing thermal printer udev rule..."
   sudo cp "$RULE_FILE" /etc/udev/rules.d/
@@ -45,5 +61,5 @@ echo "Configure PM2 to launch on boot"
 sudo pm2 startup systemd -u "$USER" --hp "$HOME"
 pm2 save
 cat <<'EOF'
-Review ${PWD}/README.md in the Thermal Print addon for Bluetooth and udev requirements before handling printers.
+Review ${BRIDGE_DIR}/README.md in the Thermal Print addon for Bluetooth and udev requirements before handling printers.
 EOF
