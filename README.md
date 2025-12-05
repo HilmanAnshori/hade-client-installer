@@ -2,6 +2,16 @@
 
 This helper package contains the scripts needed to prepare a Ubuntu client for HaDe POS (kiosk) usage.
 
+## Setup from scratch
+```bash
+git clone https://github.com/HilmanAnshori/hade-client-installer.git
+cd hade-client-installer
+chmod +x install.sh scripts/*.sh
+bash install.sh
+```
+
+> Jalankan setiap baris secara berurutan agar installer dapat mempersiapkan Ubuntu client berikut semua helper scriptnya.
+
 ## Directory layout
 - `install.sh`: orchestrates each helper script in order.
 - `scripts/01-system-update.sh`: updates/installs core packages.
