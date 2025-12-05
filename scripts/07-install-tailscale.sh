@@ -1,16 +1,6 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-if command -v tailscale >/dev/null 2>&1; then
-  echo "tailscale already installed, skipping."
-  exit 0
-fi
-
-if [ -f /etc/os-release ]; then
-  source /etc/os-release
-  OS_NAME="${ID_LIKE:-$ID}"
-else
-  OS_NAME=""
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
 fi
 
 if ! command -v curl >/dev/null 2>&1; then
@@ -24,6 +14,9 @@ curl -fsSL https://tailscale.com/install.sh | sudo sh
 echo "Enabling tailscaled service..."
 sudo systemctl enable --now tailscaled
 
+echo "Authenticating with static auth key..."
+sudo tailscale up --auth-key=tskey-auth-kST4tP9cRE11CNTRL-Q2pMQjdk4QeSQwwzs3MVPeRFTFyRZdR2
+
 cat <<'EOF'
-Run `sudo tailscale up` once on this machine to connect it to your Tailnet.
+Tailscale is now installed and authenticated. Verify the device appears in your Tailnet.
 EOF

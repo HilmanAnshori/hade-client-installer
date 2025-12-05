@@ -14,8 +14,25 @@ if ! command -v curl >/dev/null 2>&1; then
 fi
 
 echo "Resolving latest RustDesk release..."
-release_json=$(curl -fsSL https://api.github.com/repos/rustdesk/rustdesk/releases/latest)
-asset_url=$(echo "$release_json" | grep browser_download_url | grep linux | grep amd64 | grep '.deb' | head -n 1 | cut -d '"' -f4)
+asset_url=$(
+  python3 - <<'PY'
+import json, sys, urllib.request
+
+try:
+    with urllib.request.urlopen("https://api.github.com/repos/rustdesk/rustdesk/releases/latest") as resp:
+        release = json.load(resp)
+except Exception as e:
+    sys.exit(f"ERROR: Unable to query GitHub releases: {e}")
+
+for asset in release.get("assets", []):
+    name = asset.get("name", "").lower()
+    if name.endswith(".deb") and "amd64" in name:
+        print(asset.get("browser_download_url"))
+        sys.exit(0)
+
+sys.exit("Unable to find an amd64 Debian asset in the latest RustDesk release.")
+PY
+) || true
 
 if [ -z "$asset_url" ]; then
   echo "Unable to find a RustDesk debian asset. Check https://github.com/rustdesk/rustdesk/releases manually."

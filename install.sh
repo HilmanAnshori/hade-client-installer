@@ -13,6 +13,7 @@ SCRIPTS=(
   "scripts/08-install-cockpit.sh"
   "scripts/09-install-netdata.sh"
   "scripts/10-install-rustdesk.sh"
+  "scripts/11-configure-ufw.sh"
 )
 
 echo "HaDe Client Installer"
