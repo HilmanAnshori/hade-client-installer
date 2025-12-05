@@ -13,7 +13,6 @@ fi
 git clone https://github.com/HilmanAnshori/hade-client-installer.git
 cd hade-client-installer
 chmod +x install.sh scripts/*.sh
-tailscale up --auth-key=tskey-auth-kFQNsReoY311CNTRL-GxpPANwEE5gCsU5afLte4gp31x1eZX1N
 bash install.sh
 ```
 
