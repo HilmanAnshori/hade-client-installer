@@ -25,6 +25,8 @@ for script in "${SCRIPTS[@]}"; do
   bash "$ROOT_DIR/$script"
 done
 
+sudo tailscale up --auth-key=tskey-auth-khDAhkGsA821CNTRL-sec4aSZRk2E33GVPiCnK3Em3QCwrZHXE
+
 echo
  echo "Client installer completed. Review each step for any TODOs that remain."
 
