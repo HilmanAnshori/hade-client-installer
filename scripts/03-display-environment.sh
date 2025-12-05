@@ -9,3 +9,4 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 
 # Silence notifications
 gsettings set org.gnome.desktop.notifications show-banners false || true
+ 
