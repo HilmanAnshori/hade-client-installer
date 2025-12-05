@@ -3,9 +3,11 @@
 This helper package contains the scripts needed to prepare a Ubuntu client for HaDe POS (kiosk) usage.
 
 ## Setup from scratch
+
 ```bash
 sudo apt update
 sudo apt install -y git
+export TAILSCALE_AUTH_KEY=tskey-auth-kiCyC5rvp421CNTRL-qhMb3tZJr3PKhuCGpZRE3Pc9wzt9DpdqD
 if [ -d hade-client-installer ]; then
   rm -rf hade-client-installer
 fi
@@ -18,6 +20,7 @@ bash install.sh
 > Jalankan setiap baris secara berurutan agar installer dapat mempersiapkan Ubuntu client berikut semua helper scriptnya.
 
 ## Directory layout
+
 - `install.sh`: orchestrates each helper script in order and prompts for a reboot at the end.
 - `scripts/01-system-update.sh`: updates/installs core packages.
 - `scripts/02-thermal-bridge.sh`: clones the thermal-printer bridge, installs dependencies, runs it under PM2, and installs the UDEV rule from the bridge repo.
@@ -31,11 +34,17 @@ bash install.sh
 - `scripts/10-install-rustdesk.sh`: downloads the latest RustDesk `.deb` release, installs it, and leaves it available in the desktop menu.
 
 ## Usage
+
 1. Grant execute permission: `chmod +x install.sh scripts/*.sh`.
 2. Run the installer: `bash install.sh`.
 3. Follow the prompts (including the reboot confirmation at the end) before using the kiosk.
-4. Inspect each helper script and remove TODOs (e.g., thermal bridge repo credentials or PM2 config) before running on production machines.  The thermal bridge helper references `Addon Projects/Thermal Print/README.md`; follow that guide for prerequisites such as Bluetooth libraries, udev rules, and printer driver settings.
+4. Inspect each helper script and remove TODOs (e.g., thermal bridge repo credentials or PM2 config) before running on production machines. The thermal bridge helper references `Addon Projects/Thermal Print/README.md`; follow that guide for prerequisites such as Bluetooth libraries, udev rules, and printer driver settings.
+
+## Environment variables
+
+- `TAILSCALE_AUTH_KEY`: set this on the installer host before running `bash install.sh` if you want the installer to run `sudo tailscale up --auth-key=…` automatically. Example: `export TAILSCALE_AUTH_KEY=tskey-auth-XXXXXXXX`.
 
 ## Notes
+
 - Each helper script contains inline comments describing additional manual steps (e.g., customizing the bridge URL or Chrome launch arguments).
 - The installer assumes you have a working network and sudo privileges.

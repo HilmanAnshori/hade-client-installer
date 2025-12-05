@@ -14,9 +14,20 @@ curl -fsSL https://tailscale.com/install.sh | sudo sh
 echo "Enabling tailscaled service..."
 sudo systemctl enable --now tailscaled
 
-echo "Authenticating with static auth key..."
-sudo tailscale up --auth-key=tskey-auth-kST4tP9cRE11CNTRL-Q2pMQjdk4QeSQwwzs3MVPeRFTFyRZdR2
+AUTH_KEY="${TAILSCALE_AUTH_KEY:-}"
+if [ -n "$AUTH_KEY" ]; then
+  echo "Authenticating with provided auth key..."
+  sudo tailscale up --auth-key="$AUTH_KEY"
+else
+  echo "No TAILSCALE_AUTH_KEY provided. Run 'sudo tailscale up --auth-key=...'' manually once you obtain a key."
+fi
 
-cat <<'EOF'
+if [ -n "$AUTH_KEY" ]; then
+  cat <<'EOF'
 Tailscale is now installed and authenticated. Verify the device appears in your Tailnet.
 EOF
+else
+  cat <<'EOF'
+Tailscale is installed but not yet authenticated. Run `sudo tailscale up --auth-key=...` when you obtain your Tailnet auth key.
+EOF
+fi
