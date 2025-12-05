@@ -4,6 +4,8 @@ This helper package contains the scripts needed to prepare a Ubuntu client for H
 
 ## Setup from scratch
 ```bash
+sudo apt update
+sudo apt install -y git
 git clone https://github.com/HilmanAnshori/hade-client-installer.git
 cd hade-client-installer
 chmod +x install.sh scripts/*.sh

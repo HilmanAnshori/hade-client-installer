@@ -2,12 +2,6 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
-
-if ! command -v git >/dev/null 2>&1; then
-  echo "Git not found; installing..."
-  sudo apt update
-  sudo apt install -y git
-fi
 SCRIPTS=(
   "scripts/01-system-update.sh"
   "scripts/02-thermal-bridge.sh"
