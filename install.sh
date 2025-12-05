@@ -20,3 +20,11 @@ done
 
 echo
  echo "Client installer completed. Review each step for any TODOs that remain."
+
+read -rp $'Reboot now to apply system changes (thermal bridge, rules, etc.)? [y/N] ' REBOOT_CONFIRM
+if [[ "$REBOOT_CONFIRM" =~ ^[Yy]$ ]]; then
+  echo "Rebooting now..."
+  sudo reboot
+else
+  echo "Skipping reboot. Please reboot later to ensure services pick up the new configuration."
+fi

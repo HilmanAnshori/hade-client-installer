@@ -7,14 +7,16 @@ if ! command -v node >/dev/null 2>&1; then
   sudo apt install -y nodejs
 fi
 
-install_python_distutils() {
-  if sudo apt install -y python3-distutils; then
-    return 0
-  fi
+package_available() {
+  apt-cache show "$1" >/dev/null 2>&1
+}
 
-  for candidate in python3.11-distutils python3.10-distutils python3.9-distutils; do
-    if sudo apt install -y "$candidate"; then
-      return 0
+install_python_distutils() {
+  for candidate in python3-distutils python3.12-distutils python3.11-distutils python3.10-distutils python3.9-distutils python3.8-distutils; do
+    if package_available "$candidate"; then
+      if sudo apt install -y "$candidate"; then
+        return 0
+      fi
     fi
   done
 
