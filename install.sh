@@ -9,6 +9,10 @@ SCRIPTS=(
   "scripts/04-browser-setup.sh"
   "scripts/05-shortcuts.sh"
   "scripts/06-autostart.sh"
+  "scripts/07-install-tailscale.sh"
+  "scripts/08-install-cockpit.sh"
+  "scripts/09-install-netdata.sh"
+  "scripts/10-install-rustdesk.sh"
 )
 
 echo "HaDe Client Installer"

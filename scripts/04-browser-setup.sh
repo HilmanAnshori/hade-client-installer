@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Remove Firefox if installed
+# Uninstall Firefox (including locale packages) if present
 if dpkg -l firefox >/dev/null 2>&1; then
-  sudo apt remove --purge -y firefox
+  sudo apt remove --purge -y firefox firefox-locale-* || true
+fi
+rm -f "$HOME/Desktop/firefox.desktop"
+if [ -d "$HOME/.local/share/applications" ]; then
+  rm -f "$HOME/.local/share/applications/firefox.desktop"
 fi
 sudo apt autoremove -y
 
@@ -15,7 +19,7 @@ fi
 sudo apt install -y "$CHROME_DEB"
 rm -f "$CHROME_DEB"
 
-# Remove desktop shortcut and pin
+# Remove Google Chrome desktop shortcuts
 rm -f "$HOME/Desktop/google-chrome.desktop"
 if [ -d "$HOME/.local/share/applications" ]; then
   rm -f "$HOME/.local/share/applications/google-chrome.desktop"
