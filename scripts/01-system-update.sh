@@ -9,3 +9,4 @@ sudo apt install -y git curl gnupg software-properties-common openssh-server
 if dpkg -l firefox >/dev/null 2>&1; then
   sudo apt remove --purge -y firefox firefox-locale-* || true
 fi
+sudo snap remove firefox >/dev/null 2>&1 || true
