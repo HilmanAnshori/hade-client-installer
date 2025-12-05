@@ -19,7 +19,7 @@ chmod +x "$DESKTOP_SCRIPT"
 
 APP_DIR="$HOME/.local/share/applications"
 mkdir -p "$APP_DIR"
-cat > "$APP_DIR/hade-pos.desktop" <<'EOL'
+cat > "$APP_DIR/hade-pos.desktop" <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -30,6 +30,6 @@ Icon=$ICON_DST
 Terminal=false
 Categories=Utility;Network;WebBrowser;
 StartupNotify=false
-EOL
+EOF
 
 update-desktop-database "$APP_DIR"

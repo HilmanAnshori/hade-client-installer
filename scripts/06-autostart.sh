@@ -14,7 +14,7 @@ chmod +x "$START_SCRIPT"
 
 AUTOSTART_DIR="$HOME/.config/autostart"
 mkdir -p "$AUTOSTART_DIR"
-cat > "$AUTOSTART_DIR/startup-hade-pos.desktop" <<'EOL'
+cat > "$AUTOSTART_DIR/startup-hade-pos.desktop" <<EOF
 [Desktop Entry]
 Type=Application
 Exec=$START_SCRIPT
@@ -23,4 +23,4 @@ NoDisplay=false
 X-GNOME-Autostart-enabled=true
 Name=HaDe POS System
 Comment=Auto start HaDe POS
-EOL
+EOF

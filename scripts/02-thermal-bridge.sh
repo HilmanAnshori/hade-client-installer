@@ -56,6 +56,7 @@ else
   echo "Warning: $RULE_FILE missing; skipping udev rule installation."
 fi
 
+pm2 delete hale-thermal-bridge >/dev/null 2>&1 || true
 pm2 start npm --name hale-thermal-bridge -- start
 pm2 save
 
