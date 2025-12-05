@@ -14,6 +14,10 @@ if [ ! -d "$BRIDGE_DIR" ]; then
 fi
 
 cd "$BRIDGE_DIR"
+if [ -f config.example.json ] && [ ! -f config.json ]; then
+  echo "Copying default config.example.json to config.json..."
+  cp config.example.json config.json
+fi
 npm install
 
 if ! command -v pm2 >/dev/null 2>&1; then
