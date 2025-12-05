@@ -15,12 +15,6 @@ echo "Enabling tailscaled service..."
 sudo systemctl enable --now tailscaled
 
 AUTH_KEY="${TAILSCALE_AUTH_KEY:-}"
-if [ -n "$AUTH_KEY" ]; then
-  echo "Authenticating with provided auth key..."
-  sudo tailscale up --auth-key="$AUTH_KEY"
-else
-  echo "No TAILSCALE_AUTH_KEY provided. Run 'sudo tailscale up --auth-key=...'' manually once you obtain a key."
-fi
 
 if [ -n "$AUTH_KEY" ]; then
   cat <<'EOF'
