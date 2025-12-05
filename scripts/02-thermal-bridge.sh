@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
+fi
 
 # Install Node.js (or use existing toolchain)
 if ! command -v node >/dev/null 2>&1; then

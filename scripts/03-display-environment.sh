@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
+fi
 
 # Disable screen lock and sleep
 gsettings set org.gnome.desktop.session idle-delay 0 || true

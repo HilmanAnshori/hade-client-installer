@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
+fi
 
 ICON_SRC="$PWD/hade-icon.png"
 ICON_DST="/usr/share/pixmaps/hade-icon.png"

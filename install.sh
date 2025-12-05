@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
+fi
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SCRIPTS=(

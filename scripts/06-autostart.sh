@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
+fi
 
 START_SCRIPT="$HOME/start-pos.sh"
 cat > "$START_SCRIPT" <<'EOL'

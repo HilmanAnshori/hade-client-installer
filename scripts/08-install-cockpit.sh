@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
+if ! set -euo pipefail 2>/dev/null; then
+  set -eu
+fi
 
 if command -v cockpit >/dev/null 2>&1; then
   echo "Cockpit already installed, skipping."
