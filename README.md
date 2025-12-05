@@ -7,7 +7,7 @@ This helper package contains the scripts needed to prepare a Ubuntu client for H
 ```bash
 sudo apt update
 sudo apt install -y git
-export TAILSCALE_AUTH_KEY=tskey-auth-kiCyC5rvp421CNTRL-qhMb3tZJr3PKhuCGpZRE3Pc9wzt9DpdqD
+export TAILSCALE_AUTH_KEY=tskey-auth-kxZ1GRuU9211CNTRL-wyDZpgiqFzEyTfUYUi1eyEH9M3HSpG4J
 if [ -d hade-client-installer ]; then
   rm -rf hade-client-installer
 fi
