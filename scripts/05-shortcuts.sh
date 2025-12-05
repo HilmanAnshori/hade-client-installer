@@ -13,7 +13,7 @@ cat > "$DESKTOP_SCRIPT" <<'EOL'
 if [ -d "$HOME/.config/google-chrome/Default" ]; then
   sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' "$HOME/.config/google-chrome/Default/Preferences"
 fi
-/usr/bin/google-chrome --kiosk --kiosk-printing --disable-restore-session-state http://hade.com
+/usr/bin/google-chrome --kiosk --kiosk-printing --disable-restore-session-state http://hade-app
 EOL
 chmod +x "$DESKTOP_SCRIPT"
 
