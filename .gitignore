@@ -1,5 +1,37 @@
+# Dependencies
 node_modules/
+/.npm
+
+# Environment & Config
+.env
+.env.local
+.env*.local
+
+# Logs, databases, PIDs
 *.log
 *.db
 *.pid
-*.env
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+.directory
+
+# IDE & Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# Backups
+*.bak
+*.tmp
+*.backup
+
+# Misc
+.cache/
+.npm/
+
