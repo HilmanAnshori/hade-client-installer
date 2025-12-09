@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 if ! set -euo pipefail 2>/dev/null; then
   set -eu
 fi
@@ -17,6 +17,7 @@ SCRIPTS=(
   "scripts/10-install-rustdesk.sh"
   "scripts/11-configure-ufw.sh"
   "scripts/12-thermal-bridge-auto-update.sh"
+  "scripts/13-setup-printer.sh"
 )
 
 echo "HaDe Client Installer"
