@@ -7,6 +7,7 @@ This helper package contains the scripts needed to prepare a Ubuntu client for H
 ```bash
 sudo apt update
 sudo apt install -y git
+cd ~
 if [ -d hade-client-installer ]; then
   rm -rf hade-client-installer
 fi
