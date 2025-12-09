@@ -33,9 +33,33 @@ fi
 log_info "Updating thermal bridge repository..."
 cd "$BRIDGE_DIR"
 if [ -d .git ]; then
-    git fetch origin main 2>/dev/null || git fetch origin master 2>/dev/null || true
-    git pull origin main 2>/dev/null || git pull origin master 2>/dev/null || true
-    log_info "✓ Repository updated"
+    # Check current branch
+    CURRENT_BRANCH=$(git branch --show-current 2>/dev/null || echo "")
+    log_info "Current branch: ${CURRENT_BRANCH:-unknown}"
+    
+    # Ensure we're on main branch
+    if [ "$CURRENT_BRANCH" != "main" ]; then
+        log_info "Switching to main branch..."
+        git fetch origin main 2>/dev/null || {
+            log_error "Failed to fetch main branch. Repository might still use master."
+            git fetch origin master 2>/dev/null || true
+        }
+        git checkout main 2>/dev/null || {
+            log_info "Main branch not found, trying master..."
+            git checkout master 2>/dev/null || true
+        }
+    fi
+    
+    # Pull latest changes
+    log_info "Pulling latest changes..."
+    if git pull origin main 2>/dev/null; then
+        log_info "✓ Pulled from main branch"
+    elif git pull origin master 2>/dev/null; then
+        log_info "✓ Pulled from master branch"
+    else
+        log_error "Failed to pull changes from remote"
+        exit 1
+    fi
 else
     log_error "Not a git repository: $BRIDGE_DIR"
     exit 1
@@ -43,9 +67,28 @@ fi
 
 if [ ! -f "$BRIDGE_UPDATE_SCRIPT" ]; then
     log_error "Update script not found: $BRIDGE_UPDATE_SCRIPT"
-    log_error "Make sure thermal-printer-bridge repository has update-bridge.sh"
+    log_error "Repository content:"
+    ls -la "$BRIDGE_DIR" | head -20
+    log_error "Make sure you're using the latest thermal-printer-bridge repository"
     exit 1
 fi
+
+# Verify required files exist
+REQUIRED_FILES=(
+    "$BRIDGE_UPDATE_SCRIPT"
+    "${BRIDGE_DIR}/thermal-bridge-update.service"
+    "${BRIDGE_DIR}/thermal-bridge-update.timer"
+)
+
+for file in "${REQUIRED_FILES[@]}"; do
+    if [ ! -f "$file" ]; then
+        log_error "Required file missing: $file"
+        log_error "Please ensure thermal-printer-bridge repository is up to date"
+        exit 1
+    fi
+done
+
+log_info "✓ All required files found"
 
 log_info "Setting up auto-update for thermal bridge..."
 
