@@ -16,6 +16,7 @@ SCRIPTS=(
   "scripts/09-install-netdata.sh"
   "scripts/10-install-rustdesk.sh"
   "scripts/11-configure-ufw.sh"
+  "scripts/12-thermal-bridge-auto-update.sh"
 )
 
 echo "HaDe Client Installer"
@@ -36,3 +37,4 @@ if [[ "$REBOOT_CONFIRM" =~ ^[Yy]$ ]]; then
 else
   echo "Skipping reboot. Please reboot later to ensure services pick up the new configuration."
 fi
+
