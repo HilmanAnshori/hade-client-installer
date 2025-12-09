@@ -29,8 +29,21 @@ if [ ! -d "$BRIDGE_DIR" ]; then
     exit 1
 fi
 
+# Pull latest changes from repository to get update-bridge.sh
+log_info "Updating thermal bridge repository..."
+cd "$BRIDGE_DIR"
+if [ -d .git ]; then
+    git fetch origin main 2>/dev/null || git fetch origin master 2>/dev/null || true
+    git pull origin main 2>/dev/null || git pull origin master 2>/dev/null || true
+    log_info "✓ Repository updated"
+else
+    log_error "Not a git repository: $BRIDGE_DIR"
+    exit 1
+fi
+
 if [ ! -f "$BRIDGE_UPDATE_SCRIPT" ]; then
     log_error "Update script not found: $BRIDGE_UPDATE_SCRIPT"
+    log_error "Make sure thermal-printer-bridge repository has update-bridge.sh"
     exit 1
 fi
 
