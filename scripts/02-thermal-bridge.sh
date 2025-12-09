@@ -30,9 +30,13 @@ BRIDGE_DIR="$HOME/thermal-printer-bridge"
 # Remove existing directory if it exists (for clean reinstall)
 if [ -d "$BRIDGE_DIR" ]; then
   echo "Removing existing thermal-printer-bridge directory..."
+  # Change to home directory before removing to avoid "No such file or directory" error
+  cd "$HOME"
   rm -rf "$BRIDGE_DIR"
 fi
 
+# Ensure we're in a valid directory before cloning
+cd "$HOME"
 echo "Cloning thermal-printer-bridge..."
 git clone https://github.com/HilmanAnshori/thermal-printer-bridge "$BRIDGE_DIR"
 
