@@ -18,6 +18,7 @@ SCRIPTS=(
   "scripts/11-configure-ufw.sh"
   "scripts/12-thermal-bridge-auto-update.sh"
   "scripts/13-setup-printer.sh"
+  "scripts/14-install-keyd.sh"
 )
 
 echo "HaDe Client Installer"

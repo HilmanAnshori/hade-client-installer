@@ -32,6 +32,7 @@ bash install.sh
 - `scripts/08-install-cockpit.sh`: installs Cockpit for remote system administration and enables `cockpit.socket`.
 - `scripts/09-install-netdata.sh`: installs Netdata, binds it to `localhost`, and starts the monitoring agent.
 - `scripts/10-install-rustdesk.sh`: downloads the latest RustDesk `.deb` release, installs it, and leaves it available in the desktop menu.
+- `scripts/14-install-keyd.sh`: installs keyd (keyboard remapper), enables the service, and writes `/etc/keyd/instant-usb.conf` for INSTANT USB Keyboard (30fa:2031).
 
 ## Usage
 
@@ -48,3 +49,9 @@ bash install.sh
 
 - Each helper script contains inline comments describing additional manual steps (e.g., customizing the bridge URL or Chrome launch arguments).
 - The installer assumes you have a working network and sudo privileges.
+
+### Keyboard Mapping Notes (Keyd)
+
+- If you use a numeric keyboard (e.g., MTech), key names may differ.
+- Verify key events with `sudo keyd -m` and adjust `/etc/keyd/instant-usb.conf` accordingly.
+- Default mapping targets INSTANT USB Keyboard (VID:PID 30fa:2031).
