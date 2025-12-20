@@ -10,7 +10,7 @@ sleep 10
 if [ -d "$HOME/.config/google-chrome/Default" ]; then
   sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' "$HOME/.config/google-chrome/Default/Preferences"
 fi
-/usr/bin/google-chrome --kiosk --kiosk-printing --disable-restore-session-state http://hade-app
+/usr/bin/google-chrome --kiosk --kiosk-printing --disable-restore-session-state http://hade.system
 EOL
 chmod +x "$START_SCRIPT"
 
