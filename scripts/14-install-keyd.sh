@@ -42,16 +42,18 @@ cat <<'EOF' | ${SUDO} tee /etc/keyd/instant-usb.conf >/dev/null
 [main]
 # Backspace menjadi Escape
 mail = esc
-
-[main:!N]
 homepage = A-w
 kpminus = A-d
 calc = A-r
 kpasterisk = A-t
-
-[main:N]
-kpslash = A-1
+kpslash = layer(slash)
 kpplus = A-q
+
+[slash:A]
+kp7 = A-1
+kp4 = A-2
+kp1 = A-3
+kp0 = A-4
 EOF
 
 ${SUDO} systemctl reload keyd || true
